@@ -8,7 +8,15 @@ export function checkAccessToken(){
         const original = descriptor.value
         
         descriptor.value = async function(...args: any[]){
-            return original.apply(target, args)
+
+            try{
+                jwtDecode(args[0])
+                return original.apply(target, args)
+
+            }catch(error){
+                return {"message": "invalid token"}
+            }
+            
         }
     }
 }
