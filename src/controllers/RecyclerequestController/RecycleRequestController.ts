@@ -8,10 +8,12 @@ export abstract class RecycleRequestController {
         return RecycleRequestService.getRecycleRequests(token)
     }
 
+    @checkAccessToken()
     public static makeRecycleRequest(payload, token){
         return RecycleRequestService.makeRecycleRequest(payload, token)
     }
 
+    @checkAccessToken()
     public static withdrawRecycleRequest(payload, token){
         return RecycleRequestService.withdrawRecycleRequest(payload, token)
     }
