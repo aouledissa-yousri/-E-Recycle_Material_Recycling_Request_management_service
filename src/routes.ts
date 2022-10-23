@@ -1,5 +1,5 @@
 import express from "express"
-import { recycleRequestControllerRoutes } from "./controllers/RecyclerequestController/RecycleRequestControllerRoutes"
+import { recycleRequestControllerRoutes } from "./controllers/RecycleRequestController/RecycleRequestControllerRoutes"
 import { materialControllerRoutes } from "./controllers/MaterialController/MaterialControllerRoutes"
 
 let routes = express.Router()
