@@ -55,7 +55,7 @@ export abstract class RecycleRequestService {
 
     public static async withdrawRecycleRequest(payload: any, token: string){
         try{
-            let recycleRequestId = {"id": payload["id"]}
+            let recycleRequestId = payload["id"]
 
             const {data, status} = await axios.delete(
                 HOSTS[0]+"/withdrawRecycleRequest/",
@@ -67,7 +67,7 @@ export abstract class RecycleRequestService {
                         Token: token
                     },
                     data: {
-                        recycleRequestId
+                        "id": recycleRequestId
                     }
                 }
                 

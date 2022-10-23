@@ -1,21 +1,14 @@
 import jwtDecode from "jwt-decode"
 import { InvalidTokenError } from "jwt-decode"
 
-export function checkAccessToken(token){
+export function checkAccessToken(){
 
     return function(target: Object, key: string | symbol, descriptor: PropertyDescriptor){
+
+        const original = descriptor.value
         
-        try{
-            jwtDecode(token)
-            return descriptor
-
-        }catch(error: any){
-
-            if(error instanceof InvalidTokenError){
-                descriptor.value = async function() {
-                    return {"message": "invalid token"}
-                }
-            }
+        descriptor.value = async function(...args: any[]){
+            return original.apply(target, args)
         }
     }
 }

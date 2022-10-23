@@ -3,7 +3,7 @@ import { checkAccessToken } from '../../decorators'
 
 export abstract class RecycleRequestController {
 
-    //@checkAccessToken()
+    @checkAccessToken()
     public static getRecycleRequests(token){
         return RecycleRequestService.getRecycleRequests(token)
     }
