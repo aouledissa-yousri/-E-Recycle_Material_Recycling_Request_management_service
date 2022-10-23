@@ -37,7 +37,9 @@ export abstract class RecycleRequestService {
                         'Content-Type': 'application/json',
                         Accept: "application/json",
                         Token: token
-                    }
+                    },
+
+                    data: recycleRequest.getData()
                 }
             )
 

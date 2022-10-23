@@ -1,4 +1,4 @@
-import { RecyclerequestController } from "./RecycleRequestController" 
+import { RecycleRequestController } from "./RecycleRequestController" 
 
 describe("Testing RecyclerequestController ", () => { 
 	test("", () => {}) 

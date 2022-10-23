@@ -14,7 +14,12 @@ export function checkAccessToken(){
                 return original.apply(target, args)
 
             }catch(error){
-                return {"message": "invalid token"}
+                
+                if(error instanceof InvalidTokenError)
+                    return {"message": "invalid token"}
+                
+                return {"message": "unknown error"}
+                
             }
             
         }
