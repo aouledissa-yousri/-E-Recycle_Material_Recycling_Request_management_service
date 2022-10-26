@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "start": "ts-node-dev --respawn src/main.ts",
+    "prodStart": "ts-node-dev --omit=dev src/main.ts",
     "devStart": "nodemon --exec ts-node-dev src/main.ts",
     "create-controller": "ts-node scripts/manageControllers.ts create",
     "create-model": "ts-node scripts/manageModels.ts create",
