@@ -24,10 +24,11 @@ export abstract class RecycleRequestService {
 
     }
 
-    public static async makeRecycleRequest(payload: any, token: string){
+    public static async makeRecycleRequest(token: string, payload: any){
         
 
         try{
+
             let recycleRequest = RecycleRequest.createRecycleRequest(payload)
             const {data, status} = await axios.post(
                 HOSTS[0]+"/makeRecycleRequest/",
@@ -43,6 +44,8 @@ export abstract class RecycleRequestService {
                 }
             )
 
+            console.log(data)
+
             return data
 
         }catch(error){
@@ -55,8 +58,10 @@ export abstract class RecycleRequestService {
 
     }
 
-    public static async withdrawRecycleRequest(payload: any, token: string){
+    public static async withdrawRecycleRequest(token: string, payload: any){
         try{
+
+            
             let recycleRequestId = payload["id"]
 
             const {data, status} = await axios.delete(
@@ -68,6 +73,7 @@ export abstract class RecycleRequestService {
                         Accept: "application/json",
                         Token: token
                     },
+
                     data: {
                         "id": recycleRequestId
                     }
