@@ -25,11 +25,11 @@ export abstract class RecycleRequestService {
     }
 
     public static async makeRecycleRequest(token: string, payload: any){
-        
 
         try{
 
             let recycleRequest = RecycleRequest.createRecycleRequest(payload)
+
             const {data, status} = await axios.post(
                 HOSTS[0]+"/makeRecycleRequest/",
                 recycleRequest.getData(),
@@ -40,11 +40,9 @@ export abstract class RecycleRequestService {
                         Token: token
                     },
 
-                    data: recycleRequest.getData()
                 }
             )
 
-            console.log(data)
 
             return data
 
@@ -91,4 +89,60 @@ export abstract class RecycleRequestService {
 
         }
     }
+
+    public static async getAllRecycleRequests(token: string){
+
+        const {data, status} = await axios.get<RecycleRequest[]>(
+            HOSTS[0]+"/getAllRecycleRequests/",
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                }
+            }
+        )
+
+
+        return data
+
+    }
+
+    public static async validateRecycleRequest(token: string, payload: any){
+
+        const {data, status} = await axios.patch(
+            HOSTS[0]+"/validateRecycleRequest/",
+            payload,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                },
+
+            }
+        )
+
+        return data
+    }
+
+
+    public static async completeRecycleRequest(token: string, payload: any){
+
+        const {data, status} = await axios.patch(
+            HOSTS[0]+"/completeRecycleRequest/",
+            payload,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                },
+
+            }
+        )
+
+        return data
+    }
+
 }

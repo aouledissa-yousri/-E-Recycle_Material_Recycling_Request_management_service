@@ -18,4 +18,19 @@ export abstract class RecycleRequestController {
         return RecycleRequestService.withdrawRecycleRequest(token, payload)
     }
 
+    @checkAccessToken()
+    public static getAllRecycleRequests(token){
+        return RecycleRequestService.getAllRecycleRequests(token)
+    }
+
+    @checkAccessToken()
+    public static validateRecycleRequest(token, payload){
+        return RecycleRequestService.validateRecycleRequest(token, payload)
+    }
+
+    @checkAccessToken()
+    public static completeRecycleRequest(token, payload){
+        return RecycleRequestService.completeRecycleRequest(token, payload)
+    }
+
 }
