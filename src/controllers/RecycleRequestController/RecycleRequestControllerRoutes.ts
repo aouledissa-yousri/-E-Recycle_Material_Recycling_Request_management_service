@@ -11,6 +11,7 @@ recycleRequestControllerRoutes.get("/getRecycleRequests", (request, response) =>
 recycleRequestControllerRoutes.post("/makeRecycleRequest", (request, response) => RecycleRequestController.makeRecycleRequest(request.headers.token, request.body).then(result => response.send(result)))
 recycleRequestControllerRoutes.delete("/withdrawRecycleRequest", (request, response) => RecycleRequestController.withdrawRecycleRequest(request.headers.token, request.body).then(result => response.send(result)))
 recycleRequestControllerRoutes.get("/getAllRecycleRequests", (request, response) => RecycleRequestController.getAllRecycleRequests(request.headers.token).then(result => response.send(result))) 
+//recycleRequestControllerRoutes.patch("/validateRecycleRequest", (request, response) => RecycleRequestController.validateRecycleRequest(request.headers.token, request.body).then(result => response.send(result)))
 recycleRequestControllerRoutes.patch("/validateRecycleRequest", (request, response) => RecycleRequestController.validateRecycleRequest(request.headers.token, request.body).then(result => response.send(result)))
 recycleRequestControllerRoutes.patch("/completeRecycleRequest", (request, response) => RecycleRequestController.completeRecycleRequest(request.headers.token, request.body).then(result => response.send(result)))
 
