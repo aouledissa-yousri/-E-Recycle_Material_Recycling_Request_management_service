@@ -2,6 +2,7 @@ import axios from "axios"
 import { HOSTS } from '../../../connectedHosts'
 import { KeyError } from "../../errors/KeyError"
 import { RecycleRequest } from '../../models/RecycleRequest'
+import jwtDecode from 'jwt-decode';
 
 
 export abstract class RecycleRequestService {
@@ -41,6 +42,25 @@ export abstract class RecycleRequestService {
                     },
 
                 }
+            )
+
+
+            axios.patch(
+                HOSTS[1]+"/gainRecycleCoins",
+                {
+                    "id": jwtDecode(token)["id"], 
+                    "recycleRequest": recycleRequest.getData()
+                },
+
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "application/json",
+                        Token: token
+                    },
+
+                }
+            
             )
 
 
