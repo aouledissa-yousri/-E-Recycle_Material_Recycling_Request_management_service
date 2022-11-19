@@ -3,6 +3,9 @@ import { HOSTS } from '../../../connectedHosts'
 import { KeyError } from "../../errors/KeyError"
 import { RecycleRequest } from '../../models/RecycleRequest'
 import jwtDecode from 'jwt-decode';
+import { GainRecycleCoinsPayload } from '../../payloads/GainRecycleCoinsPayloads';
+import { AddMakeRecycleRequestNotification } from '../../payloads/AddMakeRecycleRequestNotification';
+import { DateHelper } from '../../helpers/DateHelper';
 
 
 export abstract class RecycleRequestService {
@@ -47,10 +50,12 @@ export abstract class RecycleRequestService {
 
             axios.patch(
                 HOSTS[1]+"/gainRecycleCoins",
-                {
+                /*{
                     "id": jwtDecode(token)["id"], 
                     "recycleRequest": recycleRequest.getData()
-                },
+                },*/
+
+                GainRecycleCoinsPayload.createGainRecycleCoinsPayload(jwtDecode(token)["id"], recycleRequest).getData(),
 
                 {
                     headers: {
@@ -61,6 +66,21 @@ export abstract class RecycleRequestService {
 
                 }
             
+            )
+
+                        
+            axios.post(
+                HOSTS[1]+"/addMakeRecycleRequestNotification",
+                AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("New recycle request has been made", DateHelper.getCurrentTimestamp(), false),
+
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "application/json",
+                        Token: token
+                    },
+
+                }
             )
 
 
@@ -143,6 +163,20 @@ export abstract class RecycleRequestService {
             }
         )
 
+        axios.post(
+            HOSTS[1]+"/addValidateRecycleRequestNotification",
+            AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("Your recycle request has been validated by a collector", DateHelper.getCurrentTimestamp(), false),
+
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                },
+
+            }
+        )
+
         return data
     }
 
@@ -152,6 +186,20 @@ export abstract class RecycleRequestService {
         const {data, status} = await axios.patch(
             HOSTS[0]+"/completeRecycleRequest/",
             payload,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                },
+
+            }
+        )
+
+        axios.post(
+            HOSTS[1]+"/addCompleteRecycleRequestNotification",
+            AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
+
             {
                 headers: {
                     'Content-Type': 'application/json',
