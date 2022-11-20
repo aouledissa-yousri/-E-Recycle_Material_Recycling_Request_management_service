@@ -148,6 +148,24 @@ export abstract class RecycleRequestService {
 
     }
 
+    public static async getValidatedRecycleRequests(token: string){
+
+        const {data, status} = await axios.get<RecycleRequest[]>(
+            HOSTS[0]+"/getValidatedRecycleRequests/",
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: "application/json",
+                    Token: token
+                }
+            }
+        )
+
+
+        return data
+
+    }
+
     public static async validateRecycleRequest(token: string, payload: any){
 
         const {data, status} = await axios.patch(

@@ -24,6 +24,11 @@ export abstract class RecycleRequestController {
     }
 
     @checkAccessToken()
+    public static getValidatedRecycleRequests(token){
+        return RecycleRequestService.getValidatedRecycleRequests(token)
+    }
+
+    @checkAccessToken()
     public static validateRecycleRequest(token, payload){
         return RecycleRequestService.validateRecycleRequest(token, payload)
     }
