@@ -171,37 +171,43 @@ export abstract class RecycleRequestService {
 
     public static async validateRecycleRequest(token: string, payload: any){
 
-        const {data, status} = await axios.patch(
-            HOSTS[0]+"/validateRecycleRequest/",
-            payload,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: "application/json",
-                    Token: token
+        try{
+
+            const {data, status} = await axios.patch(
+                HOSTS[0]+"/validateRecycleRequest/",
+                payload,
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "application/json",
+                        Token: token
+                    },
+    
+                }
+            )
+    
+            axios.post(
+                HOSTS[1]+"/addValidateRecycleRequestNotification",
+                {
+                    "id": payload["id"],
+                    "notification": AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
                 },
+                
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Accept: "application/json",
+                        Token: token
+                    },
+    
+                }
+            )
+    
+            return data
 
-            }
-        )
-
-        axios.post(
-            HOSTS[1]+"/addValidateRecycleRequestNotification",
-            {
-                "id": payload["id"],
-                "notification": AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
-            },
-            
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: "application/json",
-                    Token: token
-                },
-
-            }
-        )
-
-        return data
+        }catch(error){
+            return {"message": "unknown error"}
+        }
     }
 
 
