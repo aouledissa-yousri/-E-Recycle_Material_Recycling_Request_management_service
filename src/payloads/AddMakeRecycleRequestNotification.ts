@@ -24,21 +24,21 @@ export class AddMakeRecycleRequestNotification {
         if(description == undefined)
             throw new KeyError("description")
         
-        this.description
+        this.description = description
     }
 
     public setDate(date: string){
         if(date == undefined)
             throw new KeyError("date")
         
-        this.date
+        this.date = date
     }
 
     public setChecked(checked: boolean){
         if(checked == undefined)
             throw new KeyError("checked")
         
-        this.checked
+        this.checked = checked
     }
 
     public getData(){

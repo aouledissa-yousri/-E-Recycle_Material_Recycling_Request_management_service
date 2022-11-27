@@ -69,11 +69,13 @@ export abstract class RecycleRequestService {
             
             )
 
+
+
+
                         
             axios.post(
                 HOSTS[1]+"/addMakeRecycleRequestNotification",
-                AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("New recycle request has been made", DateHelper.getCurrentTimestamp(), false),
-
+                AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("New recycle request has been made", DateHelper.getCurrentTimestamp(), false).getData(),
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -184,8 +186,11 @@ export abstract class RecycleRequestService {
 
         axios.post(
             HOSTS[1]+"/addValidateRecycleRequestNotification",
-            AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("Your recycle request has been validated by a collector", DateHelper.getCurrentTimestamp(), false),
-
+            {
+                "id": payload["id"],
+                "notification": AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
+            },
+            
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -217,7 +222,10 @@ export abstract class RecycleRequestService {
 
         axios.post(
             HOSTS[1]+"/addCompleteRecycleRequestNotification",
-            AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
+            {
+                "id": payload["id"],
+                "notification": AddMakeRecycleRequestNotification.createAddMakeRecycleRequestNotification("The garbage you provided has been collected thank you for contributing to environmental protection", DateHelper.getCurrentTimestamp(), false),
+            },
 
             {
                 headers: {
